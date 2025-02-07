@@ -1,0 +1,28 @@
+/* Make sure that your @import statement is at the top of your CSS file  */
+@import url(https://fonts.googleapis.com/css2?family=Rubik);
+@import url(https://fonts.googleapis.com/css2?family=Lora);
+@import url(https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playwrite+FR+Trad:wght@100..400&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap);
+
+html {
+    scroll-behavior: smooth;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Rubik, Helvetica, sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-family: Playwrite FR Trad, Helvetica, sans-serif;
+    margin: 20;
+
+}
+
+h2 { 
+    font-family: Lora, Helvetica, sans-serif;
+margin: 0;
+}
