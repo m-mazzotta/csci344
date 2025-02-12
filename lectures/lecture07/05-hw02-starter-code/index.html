@@ -10,8 +10,9 @@
 </head>
 
 <body>
-    <header>
-        (header tag)
+
+    <!-- Navigation (fixed) -->
+    <header class="top-nav">
         <h1 class="logo">
             Logo / title goes here.
         </h1>
@@ -19,29 +20,37 @@
             Navigation goes here.
         </nav>
     </header>
-    <main> (main tag)
 
-        <aside>
-            (aside tag)
-            <header>Username stuff</header>
-            <section>Suggestions for you</section>
-        </aside>
+ <!-- Right Panel (fixed) -->
+ <aside class="suggestions-panel">
+    (aside tag)
+    <header>Username stuff</header>
+    <section>Suggestions for you</section>
+</aside>
 
+    <!-- Main holds scrolling items -->
+    <main> 
+
+        <!-- Main Panel (scrolling) -->
         <section class="news-feed">
-            (section tag)
-            <header>
+           
+
+            <!-- Stories -->
+            <header class="stories">
                 Stories Panel
             </header>
-            <section>
+
+            <!-- Posts -->
+            <section class="post">
                 Post 1
             </section>
-            <section>
+            <section class="post">
                 Post 2
             </section>
-            <section>
+            <section class="post">
                 Post 3
             </section>
-            <section>
+            <section class="post">
                 Post 4
             </section>
         </section>
