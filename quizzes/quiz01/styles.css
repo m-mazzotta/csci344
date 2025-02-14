@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Passion+One:wght@400;700;900&family=Playwrite+FR+Trad:wght@100..400&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header,
+main,
+footer {
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+main img{
+    max-height: 30%;
+    width: auto;
+}
+
+header {
+    display: flex;
+    background-color: #013672;
+    justify-content: space-between;
+    
+
+}
+
+header img,
+footer img {
+    width: 200px;
+}
+
+
+.links {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    gap: 20px;
+
+} 
+
+h1, h2, h3 {
+    font-family: Passion One;
+}
+h1 {
+    align-items: center;
+    text-align: center;
+}
+
+.starters {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.sides {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.tacos {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+
+.card {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box; 
+    border: solid 1px silver;
+    margin: 20px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 70% 70%;
+    grid-template-rows: 30% 40%;
+}
+
+.card img{
+    
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        display:none;
+    }
+}
