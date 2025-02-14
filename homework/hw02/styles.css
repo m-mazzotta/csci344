@@ -7,6 +7,7 @@ body * {
 body {
     margin: 0;
     background: #f4f4f4;
+    text-decoration: none;
 }
 
 /* Begin Debugging Code */
@@ -53,6 +54,8 @@ main,
 }
 
 .topbarlist {
+    text-decoration: none;
+
     font-family: Arial, Helvetica, sans-serif;
     display:flex;
     justify-content: space-between;
@@ -124,10 +127,25 @@ main,
 }
 
 .makecomment {
-    border: solid 1px rgb(213, 213, 213);
     display: flex;
+    /* justify-content: space-between; */
     align-items: center;
 
+    border: solid 1px rgb(213, 213, 213);
+    color: rgb(177, 177, 177);
+   
+
+}
+
+.makecomment #postbutton {
+    text-decoration: none;
+
+}
+
+#postbutton {
+    text-decoration: none;
+    color:rgb(119, 119, 240);
+    margin-left: 600px;
 }
 
 .stories {
@@ -150,13 +168,6 @@ main,
     color:rgb(0, 0, 0);
     font-size: 30px;
     padding: 10px;
-}
-
-.comment {
-    color: rgb(177, 177, 177);
-    list-style-type: none;
-    gap: 20px;
-    justify-content: space-between;
 }
 
 
@@ -243,6 +254,7 @@ main,
     font-weight: normal;
 }
 #follow {
+    text-decoration: none;
     color:rgb(119, 119, 240);
     font-weight: normal;
 }
