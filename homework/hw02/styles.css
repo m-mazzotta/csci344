@@ -87,6 +87,13 @@ main,
 
 }
 
+a {
+    text-decoration: none;
+    color:rgb(86, 86, 226);
+}
+
+
+
 .postbarlist {
     font-family: Comfortaa;
     font-size: 20px;
@@ -132,7 +139,7 @@ main,
     align-items: center;
 
     border: solid 1px rgb(213, 213, 213);
-    color: rgb(177, 177, 177);
+    color: rgb(100, 99, 99);
    
 
 }
@@ -160,7 +167,7 @@ main,
     min-height: 100px;
     margin-bottom: 10px;
     font-size: 12px;
-    color: rgb(177, 177, 177);
+    color: rgb(100, 99, 99);
     
 }
 
@@ -186,6 +193,7 @@ main,
     margin-top: 10px;
     border: solid 2px;
     border-color: rgb(213, 213, 213);
+    
 }
 
 .suggestions-panel {
@@ -242,7 +250,7 @@ main,
 }
 
 #under {
-    color: rgb(149, 145, 145);
+    color: rgb(100, 99, 99);
     font-size: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -250,7 +258,7 @@ main,
 }
 
 #suggest {
-    color: rgb(149, 145, 145);
+    color: rgb(100, 99, 99);
     font-weight: normal;
 }
 #follow {
