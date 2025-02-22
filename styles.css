@@ -26,3 +26,8 @@ h1 {
 }
 
 
+.keroppi img{
+    width: 90px;
+    height: auto;
+    padding-top: 10px;
+}
