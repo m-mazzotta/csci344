@@ -7,7 +7,7 @@ const search = (ev) => {
 
     // Set user's preferences (global variables) from the DOM:
     searchTerm = document.querySelector("#search_term").value;
-    openOnly = document.querySelector("#is_open").checked; //only show open classes
+    openOnly = document.querySelector("#is_open").checked;
     console.log(searchTerm, openOnly);
 
     // Invoke the show matching courses function
@@ -15,61 +15,47 @@ const search = (ev) => {
 };
 
 // Part 1.1a
-const isClassFull = (course) => { //visit course one bty one, is EnrollmentCurrent greater than EnrollmentMax
-    // modify this to accurately apply the filter:
-    return course.EnrollmentMax <= course.EnrollmentCurrent;
+const isClassOpen = (course) => {
+    // if they're applying the "open only" filter:
+    return course.EnrollmentCurrent < course.EnrollmentMax;
 };
 
 // Part 1.1b
 const doesTermMatch = (course) => {
-    // modify this to accurately apply the filter:
-    // searchTerm(web) --- how do we know this is relevant to web dev?
-    // arr.includes(web)
-
-    //course?instructor?title?
     let match = false;
 
-    //title check
-    if(course.Title.toLowerCase().includes(searchTerm.toLowerCase())){
+    // title check
+    if (course.Title.toLowerCase().includes(searchTerm.toLowerCase())) {
         match = true;
-    } else {
-        return false;
     }
-    //instructor check
-    // if(course.Instructor.toLowerCase().includes(searchTerm.toLowerCase)){
-    //     match = true;
-    // } else {
-    //     return false;
-    // }
-
     return match;
 };
 
-// Part 1.2 //convert data object to html snippet
+// Part 1.2
 const dataToHTML = (course) => {
-    // modify this to be more detailed
-    let status; 
-    // check open/closed
-    if(isClassFull(course)){
+    // modify this to be more
+    let status;
+    if (!isClassOpen(course)) {
         status = `<i class="fa-solid fa-circle-xmark"></i> Closed`;
     } else {
         status = `<i class="fa-solid fa-circle-check"></i> Open`;
     }
-
-    // get rid of negatives
     let seatsAvailable = course.EnrollmentMax - course.EnrollmentCurrent;
-        if(seatsAvailable < 0){
-            seatsAvailable = 0;
-        }
-
+    if (seatsAvailable < 0) {
+        seatsAvailable = 0;
+    }
     return `
-       <section class="course">
+        <section class="course">
             <h2>${course.Code}: ${course.Title}</h2>
             <p>
-                ${status}  &bull; ${course.CRN} &bull; Seats Available: ${seatsAvailable}
+                ${status} &bull; ${
+        course.CRN
+    } &bull; Seats Available: ${seatsAvailable}
             </p>
             <p>
-                ${course.Days || "TBD"} &bull; ${course.Location.FullLocation || "TBD"} &bull; ${course.Hours} credit hour(s)
+                ${course.Days || "TBD"} &bull; ${
+        course.Location.FullLocation || "TBD"
+    } &bull; ${course.Hours}
             </p>
             <p><strong>${course.Instructors[0].Name}</strong></p>
         </section>
@@ -83,18 +69,20 @@ const showMatchingCourses = () => {
     console.log(`Course data:`, courseList);
 
     // output all of the matching courses to the screen:
-    //variable that holds container
-    const container = document.querySelector(".courses"); //want to clear container so that old results dont show
-    container.innerHTML = "";
+    const container = document.querySelector(".courses");
+    container.innerHTML = null;
 
-    //filter by search term
-    let matches = courseList.filter(doesTermMatch); //matches is array holding relevant courses
+    // filter by search term:
+    let matches = courseList.filter(doesTermMatch);
 
-    //now that have right ones, loop through and output
-    matches.forEach(course => {
-        const snippet = dataToHTML(course); //convert each course to a snippet of html
-        console.log(snippet);
-        //now want to get into DOM. -- actuallly add htmlsnippet to the dom
+    // If they only want to see open courses, apply the filter:
+    if (openOnly) {
+        matches = matches.filter(isClassOpen);
+    }
+
+    matches.forEach((course) => {
+        // if the class is open, show it:
+        const snippet = dataToHTML(course);
         container.insertAdjacentHTML("beforeend", snippet);
-    }); 
+    });
 };
