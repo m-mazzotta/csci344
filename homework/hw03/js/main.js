@@ -12,6 +12,7 @@ async function initializeScreen() {
     getPosts();
     getStories();
     getSuggestions();
+    getProfile();
 }
 
 function showNav() {
@@ -54,7 +55,22 @@ async function getProfile(){
     });
     const data = await response.json();
     console.log(data);
+    renderProfile(data);
 
+}
+
+function renderProfile(profileJSON){
+    const template = `
+
+    <header class="flex gap-4 items-center">
+            <img src="${profileJSON.thumb_url}" alt="profile picture for ${profileJSON.username}" class="rounded-full w-16" />
+            <h2 class="font-Comfortaa font-bold text-2xl">${profileJSON.username}</h2>
+        </header>
+
+    `;
+
+    const container = document.querySelector("aside");
+    container.insertAdjacentHTML("afterbegin", template);
 }
 
 async function getStories(){  
@@ -75,18 +91,18 @@ function renderStories(storiesListJSON){
 
 }
 
-function renderStory(storiesJSON){
+function renderStory(storiesJSON, i){
+    if(i > 7){
+        return;
+    }
     const template = `
-    
-    <header class="flex gap-6 bg-white border p-2 overflow-hidden mb-6">
-            <div class="flex flex-col justify-center items-center">
-                <img src="${storiesJSON.image_url}" alt="profile photo"rounded-full border-4 border-gray-300" />
-                <p class="text-xs text-gray-500">${storiesJSON.username}</p>
+                <div class="flex flex-col justify-center items-center">
+                <img src="${storiesJSON.user.thumb_url}" alt="profile photo for ${storiesJSON.user.username}" class="rounded-full border-4 border-gray-300 w-12" />
+                <p class="text-xs text-gray-500">${storiesJSON.user.username}</p>
             </div>
-            </header>
     
     `;
-    const container = document.querySelector("main");
+    const container = document.querySelector("main header");
     container.insertAdjacentHTML("beforeend", template);
 }
 
@@ -112,18 +128,16 @@ function renderSuggestions(suggestionsListJSON){
 function renderSuggestion(suggestionsJSON){
     const template = ` 
 
-    <p class="text-base text-gray-400 font-bold mb-4">Suggestions for you</p>
-
             <section class="flex justify-between items-center mb-4 gap-2">
-                <img src="${suggestionsJSON.image_url}" class="rounded-full" />
+                <img src="${suggestionsJSON.thumb_url}" alt="profile picture for ${suggestionsJSON.username}" class="rounded-full" />
                 <div class="w-[180px]">
                     <p class="font-bold text-sm">${suggestionsJSON.username}</p>
-                    <p class="text-gray-500 text-xs">suggested for you</p>
+                    <p class="text-gray-700 text-xs">suggested for you</p>
                 </div>
-                <button class="text-blue-500 text-sm py-2">follow</button>
+                <button class="text-blue-700 text-sm py-2">follow</button>
             </section>
             `;
-    const container = document.querySelector("aside");
+    const container = document.querySelector("#suggestions");
     container.insertAdjacentHTML("beforeend", template);
 
 }
@@ -135,7 +149,7 @@ function renderPost(postJSON) {
         <section class="bg-white border mb-10">
             <div class="p-4 flex justify-between">
                 <h3 class="text-lg font-Comfortaa font-bold">${postJSON.user.username}</h3>
-                <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                <button aria-label="information"class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
             </div>
             <img src="${postJSON.image_url}" alt="${postJSON.alt_text}" width="300" height="300"
                 class="w-full bg-cover">
@@ -143,8 +157,8 @@ function renderPost(postJSON) {
                 <div class="flex justify-between text-2xl mb-3">
                     <div>
                         ${getLikeButton(postJSON)}
-                        <button><i class="far fa-comment"></i></button>
-                        <button><i class="far fa-paper-plane"></i></button>
+                        <button aria-label="comment"><i class="far fa-comment"></i></button>
+                        <button aria-label="share"><i class="far fa-paper-plane"></i></button>
                     </div>
                     <div>
                         ${renderBookmarkButton(postJSON)}
@@ -163,9 +177,9 @@ function renderPost(postJSON) {
             <div class="flex justify-between items-center p-3">
                 <div class="flex items-center gap-3 min-w-[80%]">
                     <i class="far fa-smile text-lg"></i>
-                    <input type="text" class="min-w-[80%] focus:outline-none" placeholder="Add a comment...">
+                    <input aria-label="comment" type="text" class="min-w-[80%] focus:outline-none" placeholder="Add a comment...">
                 </div>
-                <button class="text-blue-500 py-2">Post</button>
+                <button class="text-blue-700 py-2">Post</button>
             </div>
         </section>
     <!-- POSTS -->
@@ -210,11 +224,12 @@ function getLikeButton(postJSON){
     if(postJSON.current_user_like_id){ //a like exists
         iconClass = "fas text-red-700"; //then it is filled in red
             //filled in
-    return `<button onclick = "window.deleteLike(${postJSON.current_user_like_id})"><i class="${iconClass} fa-heart"></i></button>`;
+    return `
+    <button aria-label="delete like" onclick = "window.deleteLike(${postJSON.current_user_like_id})"><i class="${iconClass} fa-heart"></i></button>`;
 } else {
     //hollow
     iconClass = `
-    <button onclick = "window.createLike(${postJSON.id})">
+    <button aria-label="add like" onclick = "window.createLike(${postJSON.id})">
         <i class="far fa-heart"></i>
         </button> `;
     }
@@ -258,14 +273,14 @@ function renderBookmarkButton(postJSON) {
     if (postJSON.current_user_bookmark_id) {
         //already bookmarked
         template = `
-            <button onclick="window.deleteBookmark(${postJSON.current_user_bookmark_id})">
+            <button aria-label="delete bookmark"onclick="window.deleteBookmark(${postJSON.current_user_bookmark_id})">
                 <i class="fas fa-bookmark"></i>
             </button>
         `;
     } else {
         //not bookmarked
         template = `
-            <button onclick="window.createBookmark(${postJSON.id})">
+            <button aria-label="create bookmark" onclick="window.createBookmark(${postJSON.id})">
                 <i class="far fa-bookmark"></i>
             </button>
         `;
