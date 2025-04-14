@@ -32,6 +32,7 @@ export default function Posts({ token }) {
     useEffect(() => {
         getPosts();
     }, []);
+    
 
 function addOneToCounter(){
     setCounter (counter + 1);
@@ -40,7 +41,7 @@ function addOneToCounter(){
     console.log("redraw screen with ", counter);
     return (
         <div>
-            TODO: output all of the posts: {posts.length}
+            {/* TODO: output all of the posts: {posts.length} */}
             {posts.map((post) => (
             <Post key={post.id} token={token} post={post}/>
             ))
